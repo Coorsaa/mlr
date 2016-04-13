@@ -6,8 +6,10 @@ test_that("regr_h2orandomForest", {
   
   parset.list = list(
     list(),
-    list(alpha = 1),
-    list(alpha = 1, lambda = 0.2)
+    list(ntrees = 10),
+    list(ntrees = 10, sample_rate = 0.5),
+    list(ntrees = 10, sample_rate = 0.5, max_depth = 5),
+    list(ntrees = 10, sample_rate = 0.5, max_depth = 5, nbins = 3)
   )
   old.predicts.list = list()
   
