@@ -5,11 +5,10 @@ test_that("regr_h2orandomForest", {
   h2o::h2o.init()
   
   parset.list = list(
-    list(),
-    list(ntrees = 10),
-    list(ntrees = 10, sample_rate = 0.5),
-    list(ntrees = 10, sample_rate = 0.5, max_depth = 5),
-    list(ntrees = 10, sample_rate = 0.5, max_depth = 5, nbins = 3)
+    list(seed = getOption("mlr.debug.seed")),
+    list(seed = getOption("mlr.debug.seed"), ntrees = 10),
+    list(seed = getOption("mlr.debug.seed"), ntrees = 10, mtries = 2),
+    list(seed = getOption("mlr.debug.seed"), ntrees = 10, mtries = 4)
   )
   old.predicts.list = list()
   
@@ -24,5 +23,5 @@ test_that("regr_h2orandomForest", {
     old.predicts.list[[i]] = as.data.frame(p)[, 1L]
   }
 
-  testSimpleParsets ("regr.h2orandomForest", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list)
+  testSimpleParsets("regr.h2orandomForest", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list)
 })

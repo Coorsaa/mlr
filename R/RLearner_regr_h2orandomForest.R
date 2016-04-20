@@ -4,15 +4,15 @@ makeRLearner.regr.h2orandomForest = function() {
     cl = "regr.h2orandomForest",
     package = "h2o",
     par.set = makeParamSet(
-      makeIntegerLearnerParam("mtries", lower = -1L, default = -1L),
-      makeNumericLearnerParam("sample_rate", lower = 0, upper = 1, default = 0.632),
-      makeLogicalLearnerParam("build_tree_one_node", default = FALSE, tunable = FALSE),
-      makeIntegerLearnerParam("ntrees", lower = 1L, default = 50L),
-      makeIntegerLearnerParam("max_depth", lower = 1L, default = 20L),
-      makeIntegerLearnerParam("min_rows", lower = 1L,  default = 1L),
-      makeIntegerLearnerParam("nbins", lower = 1L, default = 20L),
-      makeIntegerLearnerParam("nbins_cats", lower = 1L, default = 1024L),
-      makeIntegerLearnerParam("seed", tunable = FALSE)
+      makeIntegerLearnerParam(id = "mtries", lower = -1L, default = -1L),
+      makeNumericLearnerParam(id = "sample_rate", lower = 0, upper = 1, default = 0.632),
+      makeLogicalLearnerParam(id = "build_tree_one_node", default = FALSE, tunable = FALSE),
+      makeIntegerLearnerParam(id = "ntrees", lower = 1L, default = 50L),
+      makeIntegerLearnerParam(id = "max_depth", lower = 1L, default = 20L),
+      makeIntegerLearnerParam(id = "min_rows", lower = 1L,  default = 1L),
+      makeIntegerLearnerParam(id = "nbins", lower = 1L, default = 20L),
+      makeIntegerLearnerParam(id = "nbins_cats", lower = 1L, default = 1024L),
+      makeIntegerLearnerParam(id = "seed", tunable = FALSE)
     ),
     properties = c("numerics", "factors"),
     name = "h2o.randomForest",
@@ -28,11 +28,11 @@ trainLearner.regr.h2orandomForest = function(.learner, .task, .subset, .weights 
   if(!inherits(conn.up, "H2OConnection")){
     h2o::h2o.init()
   }   
-  y = getTaskTargetNames(.task)
   x = getTaskFeatureNames(.task)
+  y = getTaskTargetNames(.task)
   d = getTaskData(.task, subset = .subset)
   h2of = h2o::as.h2o(d)
-  h2o::h2o.randomForest(y = y, x = x, training_frame = h2of, ...)
+  h2o::h2o.randomForest(x = x, y = y, training_frame = h2of, ...)
 }
 
 #' @export
